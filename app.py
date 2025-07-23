@@ -41,6 +41,10 @@ if st.sidebar.button("🔍 Prediksi"):
     for col in input_df.columns:
         le.fit(df[col])
         input_encoded[col] = le.transform(input_df[col])
+
+    # Pastikan input_encoded sesuai urutan kolom model
+    input_encoded = input_encoded.reindex(columns=X.columns)
+
     pred = model.predict(input_encoded)[0]
     hasil_prediksi = "✅ Risiko: Ya" if pred == 1 else "🟢 Risiko: Tidak"
     st.success(hasil_prediksi)
